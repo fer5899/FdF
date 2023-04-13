@@ -6,3 +6,4 @@ a.out
 fdf
 .vscode
 .DS_Store
+*.a

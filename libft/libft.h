@@ -6,7 +6,7 @@
 /*   By: fgomez-d <fgomez-d@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/30 16:12:48 by fgomez-d          #+#    #+#             */
-/*   Updated: 2023/04/12 18:04:04 by fgomez-d         ###   ########.fr       */
+/*   Updated: 2023/04/14 11:43:07 by fgomez-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -788,5 +788,20 @@ int		ft_abs(int n);
 *	@return		The smallest integer if find_min is 1, the biggest if it is 0.
 */
 int		ft_minmax(int a, int b, int find_min);
+
+/*
+*	@brief		Converts a number codified in the string str in certain base
+*				into an integer.
+*
+*	@param		*str	String that represents the integer to convert.
+*	@param		*base	String of elements in order that represent the base in
+*						which str is codified. For example, "0123456789ABCDEF"
+*						is the standard hexadecimal base.
+*
+*	@return		The integer interpreted from the string using the base. Effectively
+*				changes the base of the number contained in str from strlen(base) to
+*				base 10.
+*/
+int		ft_atoi_base(char *str, char *base);
 
 #endif

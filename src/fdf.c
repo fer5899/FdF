@@ -6,15 +6,15 @@
 /*   By: fgomez-d <fgomez-d@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/13 19:45:25 by fgomez-d          #+#    #+#             */
-/*   Updated: 2023/04/13 21:17:59 by fgomez-d         ###   ########.fr       */
+/*   Updated: 2023/04/14 09:11:45 by fgomez-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "inc/fdf.h"
+#include "../inc/fdf.h"
 #include <stdlib.h>
 #include <stdio.h>
 #include <unistd.h>
-#include "MLX42/include/MLX42/MLX42.h"
+#include "../MLX42/include/MLX42/MLX42.h"
 #define WIDTH 256
 #define HEIGHT 256
 
@@ -38,7 +38,7 @@ int32_t	main(void)
 {
 
 	// MLX allows you to define its core behaviour before startup.
-	mlx_set_setting(MLX_MAXIMIZED, true);
+	mlx_set_setting(MLX_MAXIMIZED, false);
 	mlx_t* mlx = mlx_init(WIDTH, HEIGHT, "42Balls", true);
 	if (!mlx)
 		ft_error();
@@ -50,8 +50,9 @@ int32_t	main(void)
 	if (!img || (mlx_image_to_window(mlx, img, 0, 0) < 0))
 		ft_error();
 
-	// Even after the image is being displayed, we can still modify the buffer.
-	mlx_put_pixel(img, 0, 0, 0xFF0000FF);
+	ft_memset(img->pixels, 255, img->width * img->height * sizeof(int32_t));
+	img->instances[0].x += 40;
+	img->instances[0].y += 70;
 
 	// Register a hook and pass mlx as an optional param.
 	// NOTE: Do this before calling mlx_loop!

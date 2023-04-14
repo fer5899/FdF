@@ -6,7 +6,7 @@
 #    By: fgomez-d <fgomez-d@student.42malaga.com    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/12/07 17:12:12 by fgomez-d          #+#    #+#              #
-#    Updated: 2023/04/13 21:12:16 by fgomez-d         ###   ########.fr        #
+#    Updated: 2023/04/14 09:08:13 by fgomez-d         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -26,7 +26,7 @@ LIB_DIR=libft
 LIB_OBJ=$(LIB_DIR)/*.o
 
 SRC_DIR=src
-SRC=
+SRC=$(SRC_DIR)/fdf.c
 
 OBJ=$(SRC:.c=.o)
 
@@ -34,7 +34,7 @@ all: libmlx $(NAME)
 
 $(NAME): $(OBJ) $(LIB_OBJ)
 	clear
-	$(CC) $(CPPFLAGS) $(CFLAGS) $(LIBS) $(HEADERS) fdf.c $(OBJ) $(LIB_OBJ) -o $(NAME)
+	$(CC) $(CPPFLAGS) $(CFLAGS) $(LIBS) $(HEADERS) $(OBJ) $(LIB_OBJ) -o $(NAME)
 
 %.o: %.c
 	$(CC) $(CFLAGS) $(CPPFLAGS) -c $< -o $@ 

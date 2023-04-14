@@ -6,7 +6,7 @@
 #    By: fgomez-d <fgomez-d@student.42malaga.com    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/12/07 17:12:12 by fgomez-d          #+#    #+#              #
-#    Updated: 2023/04/14 09:08:13 by fgomez-d         ###   ########.fr        #
+#    Updated: 2023/04/14 12:01:35 by fgomez-d         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -26,7 +26,7 @@ LIB_DIR=libft
 LIB_OBJ=$(LIB_DIR)/*.o
 
 SRC_DIR=src
-SRC=$(SRC_DIR)/fdf.c
+SRC=$(SRC_DIR)/fdf.c $(SRC_DIR)/parse_map.c $(SRC_DIR)/parse_utils.c
 
 OBJ=$(SRC:.c=.o)
 

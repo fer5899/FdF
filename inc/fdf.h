@@ -6,7 +6,7 @@
 /*   By: fgomez-d <fgomez-d@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/15 12:07:46 by fgomez-d          #+#    #+#             */
-/*   Updated: 2023/04/18 18:54:29 by fgomez-d         ###   ########.fr       */
+/*   Updated: 2023/04/18 20:26:47 by fgomez-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,9 +38,9 @@ typedef struct s_map
 
 typedef struct s_fdf
 {
-	t_map		*map;
-	mlx_t		*mlx;
-	mlx_image_t	*img;
+	t_map			*map;
+	mlx_t			*mlx;
+	mlx_image_t		*img;
 }				t_fdf;
 
 int			get_row_len(t_map_pt **pt);

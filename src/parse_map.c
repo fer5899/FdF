@@ -6,7 +6,7 @@
 /*   By: fgomez-d <fgomez-d@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/14 09:27:20 by fgomez-d          #+#    #+#             */
-/*   Updated: 2023/04/18 18:58:40 by fgomez-d         ###   ########.fr       */
+/*   Updated: 2023/04/18 20:47:25 by fgomez-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,6 @@
 
 int	init_map(t_fdf *fdf, t_map_pt **fst_row)
 {
-	// int	i;
-	// mlx_image_t	*new_img;
-
 	if (fst_row == NULL)
 		return (0);
 	fdf->map->rows = 1;
@@ -26,19 +23,6 @@ int	init_map(t_fdf *fdf, t_map_pt **fst_row)
 	if (fdf->map->pts == NULL)
 		return (free(fdf->map), 0);
 	fdf->map->pts[0] = fst_row;
-	
-	fdf->img = mlx_new_image(fdf->mlx, 256, 100); //map->cols, map->rows
-	// if (!new_img)
-	// 	return (free(map), 0);
-	// i = -1;
-	// while (++i < 256*100*4) // map->rows*map->cols
-	// {
-	// 	if (i % 4 == 3)
-	// 		new_img->pixels[i] = 255;
-	// }
-	ft_memset(fdf->img->pixels, 255, 256*100*4);
-	mlx_image_to_window(fdf->mlx, fdf->img, 256, 100);
-	
 	return (1);
 }
 
@@ -133,4 +117,6 @@ void	parse_map(char *map_path, t_fdf *fdf)
 	i_row = 1;
 	while (add_row(fdf, map_fd, i_row))
 		i_row++;
+	fdf->img = mlx_new_image(fdf->mlx, 256, 100);
+	mlx_image_to_window(fdf->mlx, fdf->img, 0, 0);
 }

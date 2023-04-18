@@ -6,27 +6,43 @@
 /*   By: fgomez-d <fgomez-d@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/14 09:27:20 by fgomez-d          #+#    #+#             */
-/*   Updated: 2023/04/14 13:55:29 by fgomez-d         ###   ########.fr       */
+/*   Updated: 2023/04/18 18:58:40 by fgomez-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/fdf.h"
 
-int	init_map(t_map *map, t_map_pt **fst_row)
+int	init_map(t_fdf *fdf, t_map_pt **fst_row)
 {
+	// int	i;
+	// mlx_image_t	*new_img;
+
 	if (fst_row == NULL)
 		return (0);
-	map->rows = 1;
-	if (map->cols == 0)
-		return (free(map), 0);
-	map->pts = (t_map_pt ***) ft_calloc(1, sizeof(t_map_pt **));
-	if (map->pts == NULL)
-		return (free(map), 0);
-	map->pts[0] = fst_row;
+	fdf->map->rows = 1;
+	if (fdf->map->cols == 0)
+		return (free(fdf->map), 0);
+	fdf->map->pts = (t_map_pt ***) ft_calloc(1, sizeof(t_map_pt **));
+	if (fdf->map->pts == NULL)
+		return (free(fdf->map), 0);
+	fdf->map->pts[0] = fst_row;
+	
+	fdf->img = mlx_new_image(fdf->mlx, 256, 100); //map->cols, map->rows
+	// if (!new_img)
+	// 	return (free(map), 0);
+	// i = -1;
+	// while (++i < 256*100*4) // map->rows*map->cols
+	// {
+	// 	if (i % 4 == 3)
+	// 		new_img->pixels[i] = 255;
+	// }
+	ft_memset(fdf->img->pixels, 255, 256*100*4);
+	mlx_image_to_window(fdf->mlx, fdf->img, 256, 100);
+	
 	return (1);
 }
 
-t_map_pt	*init_pt(char **pt_data, int row, int col)
+t_map_pt	*parse_pt(char **pt_data, int row, int col)
 {
 	t_map_pt	*pt;
 	int			rgb;
@@ -55,7 +71,7 @@ t_map_pt	*init_pt(char **pt_data, int row, int col)
 	return (pt);
 }
 
-t_map_pt	**parse_row(t_map *map, int map_fd, int i_row)
+t_map_pt	**parse_row(t_fdf *fdf, int map_fd, int i_row)
 {
 	t_map_pt	**row;
 	char		*line;
@@ -72,48 +88,49 @@ t_map_pt	**parse_row(t_map *map, int map_fd, int i_row)
 	cols = get_arr_len(split);
 	if (cols == 0)
 		return (free_split(&split), NULL);
-	map->cols = cols;
+	fdf->map->cols = cols;
 	row = (t_map_pt **) ft_calloc(cols, sizeof(t_map_pt *));
 	i_col = 0;
 	while (split[i_col] != NULL)
 	{
-		row[i_col] = init_pt(ft_split(split[i_col], ','),
+		row[i_col] = parse_pt(ft_split(split[i_col], ','),
 				i_row, i_col);
 		i_col++;
 	}
 	return (row);
 }
 
-int	add_row(t_map *map, int map_fd, int i_row)
+int	add_row(t_fdf *fdf, int map_fd, int i_row)
 {
 	t_map_pt	**row;
 
-	row = parse_row(map, map_fd, i_row);
+	row = parse_row(fdf, map_fd, i_row);
 	if (!row)
 		return (0);
-	map->pts[i_row] = row;
-	map->rows += 1;
+	fdf->map->pts[i_row] = row;
+	fdf->map->rows += 1;
 	return (1);
 }
 
-t_map	*parse_map(char *map_path)
+void	parse_map(char *map_path, t_fdf *fdf)
 {
 	int			map_fd;
 	t_map_pt	**row;
-	t_map		*map;
 	int			i_row;
 
 	map_fd = open(map_path, O_RDONLY);
 	if (map_fd == -1)
-		return (NULL);
-	map = (t_map *) ft_calloc(1, sizeof(t_map));
-	if (!map)
-		return (NULL);
-	row = parse_row(map, map_fd, 0);
-	if (!row || !init_map(map, row))
-		return (free(map->pts), free(map), NULL);
+		return ;
+	fdf->map = (t_map *) ft_calloc(1, sizeof(t_map));
+	if (!(fdf->map))
+		return ;
+	row = parse_row(fdf, map_fd, 0);
+	if (!row || !init_map(fdf, row))
+	{
+		free(fdf->map->pts);
+		free(fdf->map);
+	}
 	i_row = 1;
-	while (add_row(map, map_fd, i_row))
+	while (add_row(fdf, map_fd, i_row))
 		i_row++;
-	return (map);
 }

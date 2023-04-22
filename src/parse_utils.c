@@ -6,7 +6,7 @@
 /*   By: fgomez-d <fgomez-d@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/14 11:51:39 by fgomez-d          #+#    #+#             */
-/*   Updated: 2023/04/18 16:55:06 by fgomez-d         ###   ########.fr       */
+/*   Updated: 2023/04/22 19:37:11 by fgomez-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,6 @@ t_map_pt	*init_pt(int x, int y, int z, unsigned int rgba)
 	pt->r = get_r(rgba);
 	pt->g = get_g(rgba);
 	pt->b = get_b(rgba);
-	pt->a = get_a(rgba);
+	pt->a = 255;
 	return (pt);
 }

@@ -1,30 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   colors.c                                           :+:      :+:    :+:   */
+/*   colors_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: fgomez-d <fgomez-d@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/16 14:32:40 by fgomez-d          #+#    #+#             */
-/*   Updated: 2023/04/22 19:43:01 by fgomez-d         ###   ########.fr       */
+/*   Updated: 2023/04/22 19:23:00 by fgomez-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/fdf.h"
 
-
-void	set_colors(t_fdf *fdf, t_map_pt *pt, t_map_pt *pt1, t_map_pt *pt2)
+int	get_r(int rgba)
 {
-	if (fdf->color == 'o')
-	{
-		pt->r = 255;
-		pt->g = 140;
-		pt->b = 0;
-	}
-	pt1 = 0;
-	pt2 = 0;
-	// else if (fdf->color == 'h') Add Earth and other colors
-	// {
-		
-	// }
+	return ((rgba >> 24) & 0xFF);
+}
+
+int	get_g(int rgba)
+{
+	return ((rgba >> 16) & 0xFF);
+}
+
+int	get_b(int rgba)
+{
+	return ((rgba >> 8) & 0xFF);
+}
+
+int	get_rgba(int r, int g, int b, int a)
+{
+	return (r << 24 | g << 16 | b << 8 | a);
 }

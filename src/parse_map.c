@@ -6,7 +6,7 @@
 /*   By: fgomez-d <fgomez-d@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/14 09:27:20 by fgomez-d          #+#    #+#             */
-/*   Updated: 2023/04/18 20:47:25 by fgomez-d         ###   ########.fr       */
+/*   Updated: 2023/04/22 19:32:34 by fgomez-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,10 +23,12 @@ int	init_map(t_fdf *fdf, t_map_pt **fst_row)
 	if (fdf->map->pts == NULL)
 		return (free(fdf->map), 0);
 	fdf->map->pts[0] = fst_row;
+	fdf->map->max_z = 0;
+	fdf->map->min_z = 0;
 	return (1);
 }
 
-t_map_pt	*parse_pt(char **pt_data, int row, int col)
+t_map_pt	*parse_pt(t_fdf *fdf, char **pt_data, int row, int col)
 {
 	t_map_pt	*pt;
 	int			rgb;
@@ -36,13 +38,15 @@ t_map_pt	*parse_pt(char **pt_data, int row, int col)
 	pt->y = row;
 	if (pt_data == NULL)
 		return (pt);
-	if (pt_data[1] == NULL)
-	{
-		pt->r = 255;
-		pt->g = 255;
-		pt->b = 255;
-	}
-	else
+	pt->r = 255;
+	pt->g = 140;
+	pt->a = 255;
+	pt->z = ft_atoi(pt_data[0]);
+	if (pt->z > fdf->map->max_z)
+		fdf->map->max_z = pt->z;
+	if (pt->z < fdf->map->min_z)
+		fdf->map->min_z = pt->z;
+	if (pt_data[1] != NULL)
 	{
 		ft_striteri(pt_data[1], iter_to_lower);
 		rgb = ft_atoi_base(pt_data[1] + 2, "0123456789abcdef");
@@ -50,8 +54,6 @@ t_map_pt	*parse_pt(char **pt_data, int row, int col)
 		pt->g = ((rgb >> 8) & 0xFF);
 		pt->b = ((rgb >> 0) & 0xFF);
 	}
-	pt->a = 255; // Comprobar si pueden entrar valores de opacidad por mapa
-	pt->z = ft_atoi(pt_data[0]);
 	return (pt);
 }
 
@@ -77,7 +79,7 @@ t_map_pt	**parse_row(t_fdf *fdf, int map_fd, int i_row)
 	i_col = 0;
 	while (split[i_col] != NULL)
 	{
-		row[i_col] = parse_pt(ft_split(split[i_col], ','),
+		row[i_col] = parse_pt(fdf, ft_split(split[i_col], ','),
 				i_row, i_col);
 		i_col++;
 	}
@@ -115,8 +117,10 @@ void	parse_map(char *map_path, t_fdf *fdf)
 		free(fdf->map);
 	}
 	i_row = 1;
-	while (add_row(fdf, map_fd, i_row))
+	while (i_row < fdf->map->rows)
+	{
+		add_row(fdf, map_fd, i_row); // protect this
 		i_row++;
-	fdf->img = mlx_new_image(fdf->mlx, 256, 100);
-	mlx_image_to_window(fdf->mlx, fdf->img, 0, 0);
+	}
+	close(map_fd);
 }

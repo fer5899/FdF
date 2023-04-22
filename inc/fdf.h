@@ -6,7 +6,7 @@
 /*   By: fgomez-d <fgomez-d@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/15 12:07:46 by fgomez-d          #+#    #+#             */
-/*   Updated: 2023/04/22 19:57:51 by fgomez-d         ###   ########.fr       */
+/*   Updated: 2023/04/22 20:27:08 by fgomez-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,8 @@
 
 # define WIDTH 500
 # define HEIGHT 500
+# define MIN_PT_SEP 5
+# define STD_ZOOM 4
 
 typedef struct s_map_pt
 {
@@ -41,6 +43,7 @@ typedef struct s_map
 	int				cols;
 	int				max_z;
 	int				min_z;
+	int				max_pxl;
 }					t_map;
 
 typedef struct s_fdf
@@ -48,7 +51,8 @@ typedef struct s_fdf
 	t_map			*map;
 	mlx_t			*mlx;
 	mlx_image_t		*img;
-	char			color;
+	int				zoom;
+	char			style;
 }				t_fdf;
 
 int			get_row_len(t_map_pt **pt);

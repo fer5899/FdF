@@ -6,7 +6,7 @@
 /*   By: fgomez-d <fgomez-d@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/14 09:27:20 by fgomez-d          #+#    #+#             */
-/*   Updated: 2023/04/22 20:01:44 by fgomez-d         ###   ########.fr       */
+/*   Updated: 2023/04/22 20:13:26 by fgomez-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,5 +122,6 @@ void	parse_map(char *map_path, t_fdf *fdf)
 		add_row(fdf, map_fd, i_row); // protect this
 		i_row++;
 	}
+	fdf->map->max_pxl = fdf->map->rows + fdf->map->cols * MIN_PT_SEP * STD_ZOOM;
 	close(map_fd);
 }

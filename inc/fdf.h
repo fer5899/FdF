@@ -6,7 +6,7 @@
 /*   By: fgomez-d <fgomez-d@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/15 12:07:46 by fgomez-d          #+#    #+#             */
-/*   Updated: 2023/04/22 19:46:52 by fgomez-d         ###   ########.fr       */
+/*   Updated: 2023/04/22 19:57:51 by fgomez-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,8 @@
 
 typedef struct s_map_pt
 {
+	int	row;
+	int	col;
 	int	x;
 	int	y;
 	int	z;

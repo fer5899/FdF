@@ -6,7 +6,7 @@
 /*   By: fgomez-d <fgomez-d@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/14 09:27:20 by fgomez-d          #+#    #+#             */
-/*   Updated: 2023/04/22 19:32:34 by fgomez-d         ###   ########.fr       */
+/*   Updated: 2023/04/22 20:01:44 by fgomez-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,8 +34,8 @@ t_map_pt	*parse_pt(t_fdf *fdf, char **pt_data, int row, int col)
 	int			rgb;
 
 	pt = (t_map_pt *) ft_calloc(1, sizeof(t_map_pt));
-	pt->x = col;
-	pt->y = row;
+	pt->row = row;
+	pt->col = col;
 	if (pt_data == NULL)
 		return (pt);
 	pt->r = 255;

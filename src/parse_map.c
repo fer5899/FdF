@@ -6,7 +6,7 @@
 /*   By: fgomez-d <fgomez-d@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/14 09:27:20 by fgomez-d          #+#    #+#             */
-/*   Updated: 2023/04/26 18:12:06 by fgomez-d         ###   ########.fr       */
+/*   Updated: 2023/04/26 18:30:33 by fgomez-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,8 @@ int	init_map(t_fdf *fdf, t_map_pt **fst_row)
 		return (0);
 	if (fdf->map->cols == 0)
 		return (free(fdf->map), 0);
-	fdf->map->pts = (t_map_pt ***) ft_calloc(1, sizeof(t_map_pt **));
+	fdf->map->pts = (t_map_pt ***) ft_calloc(fdf->map->rows,
+			sizeof(t_map_pt **));
 	if (fdf->map->pts == NULL)
 		return (free(fdf->map), 0);
 	fdf->map->pts[0] = fst_row;

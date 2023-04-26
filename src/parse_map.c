@@ -6,7 +6,7 @@
 /*   By: fgomez-d <fgomez-d@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/14 09:27:20 by fgomez-d          #+#    #+#             */
-/*   Updated: 2023/04/22 20:13:26 by fgomez-d         ###   ########.fr       */
+/*   Updated: 2023/04/26 18:12:06 by fgomez-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,6 @@ int	init_map(t_fdf *fdf, t_map_pt **fst_row)
 {
 	if (fst_row == NULL)
 		return (0);
-	fdf->map->rows = 1;
 	if (fdf->map->cols == 0)
 		return (free(fdf->map), 0);
 	fdf->map->pts = (t_map_pt ***) ft_calloc(1, sizeof(t_map_pt **));
@@ -94,7 +93,6 @@ int	add_row(t_fdf *fdf, int map_fd, int i_row)
 	if (!row)
 		return (0);
 	fdf->map->pts[i_row] = row;
-	fdf->map->rows += 1;
 	return (1);
 }
 
@@ -104,24 +102,26 @@ void	parse_map(char *map_path, t_fdf *fdf)
 	t_map_pt	**row;
 	int			i_row;
 
-	map_fd = open(map_path, O_RDONLY);
-	if (map_fd == -1)
-		return ;
 	fdf->map = (t_map *) ft_calloc(1, sizeof(t_map));
 	if (!(fdf->map))
+		return ;
+	fdf->map->rows = count_rows(map_path);
+	map_fd = open(map_path, O_RDONLY);
+	if (map_fd == -1)
 		return ;
 	row = parse_row(fdf, map_fd, 0);
 	if (!row || !init_map(fdf, row))
 	{
-		free(fdf->map->pts);
+		free(fdf->map->pts); // Reduce this with free functions
 		free(fdf->map);
 	}
-	i_row = 1;
-	while (i_row < fdf->map->rows)
+	i_row = 0;
+	while (++i_row < fdf->map->rows)
 	{
 		add_row(fdf, map_fd, i_row); // protect this
-		i_row++;
 	}
-	fdf->map->max_pxl = fdf->map->rows + fdf->map->cols * MIN_PT_SEP * STD_ZOOM;
 	close(map_fd);
+	fdf->map->max_pxl = (fdf->map->rows + fdf->map->cols) * MIN_PT_SEP * STD_ZOOM;
+	fdf->map->x_offset = fdf->map->rows * MIN_PT_SEP * STD_ZOOM / 2;
+	fdf->map->y_offset = fdf->map->cols * MIN_PT_SEP * STD_ZOOM / 2;
 }

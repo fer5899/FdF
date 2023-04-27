@@ -6,7 +6,7 @@
 /*   By: fgomez-d <fgomez-d@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/27 13:09:48 by fgomez-d          #+#    #+#             */
-/*   Updated: 2023/04/27 17:34:57 by fgomez-d         ###   ########.fr       */
+/*   Updated: 2023/04/27 17:43:39 by fgomez-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,7 @@ void	get_img_size(t_fdf *fdf)
 	fdf->map->min_y = 0;
 	fdf->map->max_z = 0;
 	fdf->map->min_z = 0;
+	fdf_map_iter(fdf, calc_pts_xy);
 	fdf_map_iter(fdf, find_minmax);
 	fdf_map_iter(fdf, normalize);
 }

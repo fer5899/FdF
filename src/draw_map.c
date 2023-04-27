@@ -6,7 +6,7 @@
 /*   By: fgomez-d <fgomez-d@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/22 17:03:55 by fgomez-d          #+#    #+#             */
-/*   Updated: 2023/04/27 16:53:50 by fgomez-d         ###   ########.fr       */
+/*   Updated: 2023/04/27 17:43:51 by fgomez-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,6 @@ void	connect_pts(t_fdf *fdf, t_map_pt *pt)
 
 void	draw_map(t_fdf *fdf)
 {
-	fdf_map_iter(fdf, calc_pts_xy);
 	get_img_size(fdf);
 	mlx_resize_image(fdf->img, fdf->img_w, fdf->img_h);
 	fdf_map_iter(fdf, connect_pts);

@@ -6,7 +6,7 @@
 #    By: fgomez-d <fgomez-d@student.42malaga.com    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/12/07 17:12:12 by fgomez-d          #+#    #+#              #
-#    Updated: 2023/04/22 19:23:16 by fgomez-d         ###   ########.fr        #
+#    Updated: 2023/04/26 15:38:09 by fgomez-d         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -28,7 +28,7 @@ LIB_OBJ=$(LIB_DIR)/*.o
 SRC_DIR=src
 SRC=$(SRC_DIR)/fdf.c $(SRC_DIR)/parse_map.c $(SRC_DIR)/parse_utils.c \
 	$(SRC_DIR)/colors.c $(SRC_DIR)/draw_tools.c $(SRC_DIR)/draw_map.c \
-	$(SRC_DIR)/colors_utils.c
+	$(SRC_DIR)/colors_utils.c $(SRC_DIR)/parse_utils2.c
 
 OBJ=$(SRC:.c=.o)
 

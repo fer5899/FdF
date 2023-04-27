@@ -6,11 +6,26 @@
 /*   By: fgomez-d <fgomez-d@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/22 17:03:55 by fgomez-d          #+#    #+#             */
-/*   Updated: 2023/04/27 17:43:51 by fgomez-d         ###   ########.fr       */
+/*   Updated: 2023/04/27 18:00:20 by fgomez-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/fdf.h"
+
+void	clean_img(t_fdf *fdf)
+{
+	int i;
+
+	i = -1;
+	while (++i < (int)(fdf->img->height * fdf->img->width * 4))
+		fdf->img->pixels[i] = 0;
+}
+
+void	center_img(t_fdf *fdf)
+{
+	fdf->img->instances[0].x = (WIDTH - fdf->img_w) / 2;
+	fdf->img->instances[0].y = (HEIGHT - fdf->img_h) / 2;
+}
 
 void	calc_pts_xy(t_fdf *fdf, t_map_pt *pt)
 {

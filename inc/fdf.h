@@ -6,7 +6,7 @@
 /*   By: fgomez-d <fgomez-d@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/15 12:07:46 by fgomez-d          #+#    #+#             */
-/*   Updated: 2023/04/27 14:42:59 by fgomez-d         ###   ########.fr       */
+/*   Updated: 2023/04/27 18:00:58 by fgomez-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,5 +82,9 @@ int			count_rows(char *path);
 void		calc_pts_xy(t_fdf *fdf, t_map_pt *pt);
 void		fdf_map_iter(t_fdf *fdf, void (*f)(t_fdf *, t_map_pt *));
 void		get_img_size(t_fdf *fdf);
+void		check_args(int argc, char **argv);
+void		fdf_init(t_fdf *fdf, char **argv);
+void		clean_img(t_fdf *fdf);
+void		center_img(t_fdf *fdf);
 
 #endif

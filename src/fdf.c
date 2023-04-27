@@ -6,7 +6,7 @@
 /*   By: fgomez-d <fgomez-d@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/13 19:45:25 by fgomez-d          #+#    #+#             */
-/*   Updated: 2023/04/27 17:48:07 by fgomez-d         ###   ########.fr       */
+/*   Updated: 2023/04/27 18:26:05 by fgomez-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,21 +16,6 @@ static void ft_error(void)
 {
 	ft_printf_fd("Error\n", 2);
 	exit(EXIT_FAILURE);
-}
-
-void	clean_img(t_fdf *fdf)
-{
-	int i;
-
-	i = -1;
-	while (++i < (int)(fdf->img->height * fdf->img->width * 4))
-		fdf->img->pixels[i] = 0;
-}
-
-void	center_img(t_fdf *fdf)
-{
-	fdf->img->instances[0].x = (WIDTH - fdf->img_w) / 2;
-	fdf->img->instances[0].y = (HEIGHT - fdf->img_h) / 2;
 }
 
 void ft_hook(void* param)
@@ -58,7 +43,7 @@ void ft_hook(void* param)
 		center_img(fdf);
 		draw_map(fdf);
 	}
-	if (mlx_is_key_down(mlx, MLX_KEY_KP_SUBTRACT) && fdf->zoom > 0)
+	if (mlx_is_key_down(mlx, MLX_KEY_KP_SUBTRACT) && fdf->zoom > 1)
 	{
 		fdf->zoom -= 1;
 		clean_img(fdf);
@@ -79,32 +64,28 @@ void ft_hook(void* param)
 		clean_img(fdf);
 		draw_map(fdf);
 	}
+	if (mlx_is_key_down(mlx, MLX_KEY_B))
+	{
+		fdf->brush += 1;
+		clean_img(fdf);
+		draw_map(fdf);
+	}
+	if (mlx_is_key_down(mlx, MLX_KEY_V) && fdf->brush > 1)
+	{
+		fdf->brush -= 1;
+		clean_img(fdf);
+		draw_map(fdf);
+	}
 }
 
 int	main(int argc, char **argv)
 {
 	t_fdf	fdf;
 
-	if (argc != 2)
-		return (ft_printf_fd(
-				"Introduzca únicamente un archivo .fdf como argumento\n", 2), 1);
-	if (ft_strnstr(argv[1], ".fdf", ft_strlen(argv[1])) == NULL)
-		return (ft_printf_fd(
-				"Introduzca un archivo .fdf como argumento\n", 2), 1);
-	fdf.fd = open(argv[1], O_RDONLY);
-	if (fdf.fd == -1)
-		return (ft_printf_fd(
-				"Error al abrir el archivo\n", 2), 1);
-	close(fdf.fd);
-	fdf.zoom = STD_ZOOM;
-	fdf.h_mod = STD_HMOD;
-	fdf.brush = 1;
-	fdf.style = 'o';
+	check_args(argc, argv);
+	fdf_init(&fdf, argv);
 	fdf.mlx = mlx_init(WIDTH, HEIGHT, "FdF - Fernando Gómez", true);
 	if (!fdf.mlx)
-		ft_error();
-	parse_map(argv[1], &fdf);
-	if (!fdf.map)
 		ft_error();
 	fdf.img = mlx_new_image(fdf.mlx, fdf.img_w, fdf.img_h);
 	if (!fdf.img)

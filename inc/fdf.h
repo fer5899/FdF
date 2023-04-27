@@ -6,7 +6,7 @@
 /*   By: fgomez-d <fgomez-d@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/15 12:07:46 by fgomez-d          #+#    #+#             */
-/*   Updated: 2023/04/27 13:29:06 by fgomez-d         ###   ########.fr       */
+/*   Updated: 2023/04/27 14:42:59 by fgomez-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,10 @@ typedef struct s_map
 	t_map_pt		***pts;
 	int				rows;
 	int				cols;
+	int				min_x;
+	int				max_x;
+	int				min_y;
+	int				max_y;
 	int				max_z;
 	int				min_z;
 	int				max_pxl;
@@ -56,6 +60,8 @@ typedef struct s_fdf
 	double			h_mod;
 	char			style;
 	int				brush;
+	int				img_h;
+	int				img_w;
 }				t_fdf;
 
 int			get_row_len(t_map_pt **pt);
@@ -75,5 +81,6 @@ void		draw_map(t_fdf *fdf);
 int			count_rows(char *path);
 void		calc_pts_xy(t_fdf *fdf, t_map_pt *pt);
 void		fdf_map_iter(t_fdf *fdf, void (*f)(t_fdf *, t_map_pt *));
+void		get_img_size(t_fdf *fdf);
 
 #endif

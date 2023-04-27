@@ -6,7 +6,7 @@
 /*   By: fgomez-d <fgomez-d@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/14 09:27:20 by fgomez-d          #+#    #+#             */
-/*   Updated: 2023/04/27 13:07:23 by fgomez-d         ###   ########.fr       */
+/*   Updated: 2023/04/27 17:35:49 by fgomez-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ int	init_map(t_fdf *fdf, t_map_pt **fst_row)
 	return (1);
 }
 
-t_map_pt	*parse_pt(t_fdf *fdf, char **pt_data, int row, int col)
+t_map_pt	*parse_pt(char **pt_data, int row, int col)
 {
 	t_map_pt	*pt;
 	int			rgb;
@@ -42,10 +42,6 @@ t_map_pt	*parse_pt(t_fdf *fdf, char **pt_data, int row, int col)
 	pt->g = 140;
 	pt->a = 255;
 	pt->z = ft_atoi(pt_data[0]);
-	if (pt->z > fdf->map->max_z)
-		fdf->map->max_z = pt->z;
-	if (pt->z < fdf->map->min_z)
-		fdf->map->min_z = pt->z;
 	if (pt_data[1] != NULL)
 	{
 		ft_striteri(pt_data[1], iter_to_lower);
@@ -79,7 +75,7 @@ t_map_pt	**parse_row(t_fdf *fdf, int map_fd, int i_row)
 	i_col = 0;
 	while (split[i_col] != NULL)
 	{
-		row[i_col] = parse_pt(fdf, ft_split(split[i_col], ','),
+		row[i_col] = parse_pt(ft_split(split[i_col], ','),
 				i_row, i_col);
 		i_col++;
 	}
@@ -122,5 +118,6 @@ void	parse_map(char *map_path, t_fdf *fdf)
 		add_row(fdf, map_fd, i_row); // protect this
 	}
 	close(map_fd);
-	fdf->map->max_pxl = (fdf->map->rows + fdf->map->cols) * STD_ZOOM;
+	fdf_map_iter(fdf, calc_pts_xy);
+	get_img_size(fdf);
 }

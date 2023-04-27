@@ -6,7 +6,7 @@
 /*   By: fgomez-d <fgomez-d@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/14 09:27:20 by fgomez-d          #+#    #+#             */
-/*   Updated: 2023/04/27 17:43:33 by fgomez-d         ###   ########.fr       */
+/*   Updated: 2023/04/27 19:40:54 by fgomez-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,8 +38,6 @@ t_map_pt	*parse_pt(char **pt_data, int row, int col)
 	pt->col = col;
 	if (pt_data == NULL)
 		return (pt);
-	pt->r = 255;
-	pt->g = 140;
 	pt->a = 255;
 	pt->z = ft_atoi(pt_data[0]);
 	if (pt_data[1] != NULL)

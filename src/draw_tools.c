@@ -6,7 +6,7 @@
 /*   By: fgomez-d <fgomez-d@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/16 12:52:46 by fgomez-d          #+#    #+#             */
-/*   Updated: 2023/04/27 12:38:15 by fgomez-d         ###   ########.fr       */
+/*   Updated: 2023/04/27 19:39:26 by fgomez-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,9 +65,9 @@ void	draw_line(t_fdf *fdf, t_map_pt *pt1, t_map_pt *pt2)
 	{
 		pt.x = (int)(mx * i) + pt1->x;
 		pt.y = (int)(my * i) + pt1->y;
-		pt.r = ((int)((double)(pt2->r - pt1->r) / (double)(n_pts))) * (i + 1);
-		pt.g = ((int)((double)(pt2->g - pt1->g) / (double)(n_pts))) * (i + 1);
-		pt.b = ((int)((double)(pt2->b - pt1->b) / (double)(n_pts))) * (i + 1);
+		pt.r = ((int)(((double)(pt2->r - pt1->r) / (double)(n_pts)) * (i))) + pt1->r;
+		pt.g = ((int)(((double)(pt2->g - pt1->g) / (double)(n_pts)) * (i))) + pt1->g;
+		pt.b = ((int)(((double)(pt2->b - pt1->b) / (double)(n_pts)) * (i))) + pt1->b;
 		if (fdf->style != 'g')
 			set_colors(fdf, &pt, pt1, pt2);
 		draw_pt(fdf, &pt);

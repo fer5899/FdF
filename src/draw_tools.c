@@ -6,7 +6,7 @@
 /*   By: fgomez-d <fgomez-d@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/16 12:52:46 by fgomez-d          #+#    #+#             */
-/*   Updated: 2023/04/22 20:27:26 by fgomez-d         ###   ########.fr       */
+/*   Updated: 2023/04/27 12:38:15 by fgomez-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,29 +27,29 @@ void	set_pixel(t_fdf *fdf, int x, int y, int rgba)
 	}
 }
 
-void	draw_pt(t_fdf *fdf, t_map_pt *pt, int brush_size)
+void	draw_pt(t_fdf *fdf, t_map_pt *pt)
 {
 	int	x;
 	int	y;
 	int	calc;
 
-	y = -brush_size;
-	x = -brush_size;
-	while (++x < brush_size)
+	y = -fdf->brush;
+	x = -fdf->brush;
+	while (++x < fdf->brush)
 	{
-		while (++y < brush_size)
+		while (++y < fdf->brush)
 		{
 			calc = (int) sqrt((double)(x * x + y * y));
-			if (calc < brush_size)
+			if (calc < fdf->brush)
 				set_pixel(fdf, pt->x + x, pt->y + y,
 					get_rgba(pt->r, pt->g, pt->b, 255));
 		}
-		y = -brush_size;
+		y = -fdf->brush;
 	}
 }
 
 
-void	draw_line(t_fdf *fdf, t_map_pt *pt1, t_map_pt *pt2, int brush_size)
+void	draw_line(t_fdf *fdf, t_map_pt *pt1, t_map_pt *pt2)
 {
 	t_map_pt	pt;
 	double		mx;
@@ -70,7 +70,7 @@ void	draw_line(t_fdf *fdf, t_map_pt *pt1, t_map_pt *pt2, int brush_size)
 		pt.b = ((int)((double)(pt2->b - pt1->b) / (double)(n_pts))) * (i + 1);
 		if (fdf->style != 'g')
 			set_colors(fdf, &pt, pt1, pt2);
-		draw_pt(fdf, &pt, brush_size);
+		draw_pt(fdf, &pt);
 		i++;
 	}
 }

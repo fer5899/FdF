@@ -6,7 +6,7 @@
 /*   By: fgomez-d <fgomez-d@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/15 12:07:46 by fgomez-d          #+#    #+#             */
-/*   Updated: 2023/04/27 12:26:45 by fgomez-d         ###   ########.fr       */
+/*   Updated: 2023/04/27 13:29:06 by fgomez-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,8 +44,6 @@ typedef struct s_map
 	int				max_z;
 	int				min_z;
 	int				max_pxl;
-	int				x_offset;
-	int				y_offset;
 }					t_map;
 
 typedef struct s_fdf
@@ -57,6 +55,7 @@ typedef struct s_fdf
 	int				zoom;
 	double			h_mod;
 	char			style;
+	int				brush;
 }				t_fdf;
 
 int			get_row_len(t_map_pt **pt);
@@ -68,11 +67,13 @@ int			get_r(int rgba);
 int			get_g(int rgba);
 int			get_b(int rgba);
 int			get_rgba(int r, int g, int b, int a);
-void		draw_pt(t_fdf *fdf, t_map_pt *pt, int brush_size);
-void		draw_line(t_fdf *fdf, t_map_pt *pt1, t_map_pt *pt2, int brush_size);
+void		draw_pt(t_fdf *fdf, t_map_pt *pt);
+void		draw_line(t_fdf *fdf, t_map_pt *pt1, t_map_pt *pt2);
 t_map_pt	*init_pt(int x, int y, int z, unsigned int rgba);
 void		set_colors(t_fdf *fdf, t_map_pt *pt, t_map_pt *pt1, t_map_pt *pt2);
-void		draw_map(t_fdf *fdf, int brush_size);
+void		draw_map(t_fdf *fdf);
 int			count_rows(char *path);
+void		calc_pts_xy(t_fdf *fdf, t_map_pt *pt);
+void		fdf_map_iter(t_fdf *fdf, void (*f)(t_fdf *, t_map_pt *));
 
 #endif

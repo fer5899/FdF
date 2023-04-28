@@ -6,7 +6,7 @@
 /*   By: fgomez-d <fgomez-d@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/27 13:20:25 by fgomez-d          #+#    #+#             */
-/*   Updated: 2023/04/28 10:25:06 by fgomez-d         ###   ########.fr       */
+/*   Updated: 2023/04/28 10:38:38 by fgomez-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,7 @@ void	clean_img(t_fdf *fdf)
 
 	i = -1;
 	while (++i < (int)(fdf->img->height * fdf->img->width * 4))
-		fdf->img->pixels[i] = 255;
+		fdf->img->pixels[i] = 0;
 }
 
 void	center_img(t_fdf *fdf)

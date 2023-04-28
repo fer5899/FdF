@@ -6,7 +6,7 @@
 #    By: fgomez-d <fgomez-d@student.42malaga.com    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/12/07 17:12:12 by fgomez-d          #+#    #+#              #
-#    Updated: 2023/04/28 09:44:59 by fgomez-d         ###   ########.fr        #
+#    Updated: 2023/04/28 13:01:51 by fgomez-d         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -28,7 +28,7 @@ SRC_DIR=src
 SRC=$(SRC_DIR)/fdf.c $(SRC_DIR)/parse_map.c $(SRC_DIR)/parse_utils.c \
 	$(SRC_DIR)/colors.c $(SRC_DIR)/draw_tools.c $(SRC_DIR)/draw_map.c \
 	$(SRC_DIR)/colors_utils.c $(SRC_DIR)/parse_utils2.c $(SRC_DIR)/normalization.c \
-	$(SRC_DIR)/fdf_utils.c
+	$(SRC_DIR)/fdf_utils.c $(SRC_DIR)/hooks.c
 
 OBJ=$(SRC:.c=.o)
 

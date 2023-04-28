@@ -6,7 +6,7 @@
 /*   By: fgomez-d <fgomez-d@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/15 12:07:46 by fgomez-d          #+#    #+#             */
-/*   Updated: 2023/04/28 11:40:54 by fgomez-d         ###   ########.fr       */
+/*   Updated: 2023/04/28 13:01:20 by fgomez-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,5 +92,7 @@ void		fdf_init(t_fdf *fdf, char **argv);
 void		clean_img(t_fdf *fdf);
 void		center_img(t_fdf *fdf);
 void		set_initial_zoom(t_fdf *fdf);
+void		disc_hook(mlx_key_data_t keydata, void *param);
+void		cont_hook(void *param);
 
 #endif

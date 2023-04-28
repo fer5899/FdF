@@ -6,7 +6,7 @@
 /*   By: fgomez-d <fgomez-d@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/13 19:45:25 by fgomez-d          #+#    #+#             */
-/*   Updated: 2023/04/28 11:20:50 by fgomez-d         ###   ########.fr       */
+/*   Updated: 2023/04/28 12:52:20 by fgomez-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,145 +18,91 @@ static void	ft_error(void)
 	exit(EXIT_FAILURE);
 }
 
-void	print_pt(t_fdf *fdf, t_map_pt *pt)
-{
-	// if (pt->col == 0 && pt->row == 0)
-	// {
-	// 	get_img_size(fdf);
-	// }
-	ft_printf("(%d, %d) ", pt->x, pt->y);
-	if (pt->col == fdf->map->cols - 1)
-		ft_printf("\n");
-	if (pt->col == fdf->map->cols - 1 && pt->row == fdf->map->rows - 1)
-	{
-		ft_printf("saved img size: %d %d\n", fdf->img_w, fdf->img_h);
-	}
-	
-}
-
 void	ft_hook(void *param)
 {
-	mlx_t		*mlx = ((t_fdf *) param)->mlx;
-	mlx_image_t	*image = ((t_fdf *) param)->img;
-	t_fdf		*fdf = (t_fdf *) param;
+	t_fdf		*fdf;
 
-	if (mlx_is_key_down(mlx, MLX_KEY_ESCAPE))
-		mlx_close_window(mlx);
-	if (mlx_is_key_down(mlx, MLX_KEY_UP))
-		image->instances[0].y -= 5;
-	if (mlx_is_key_down(mlx, MLX_KEY_DOWN))
-		image->instances[0].y += 5;
-	if (mlx_is_key_down(mlx, MLX_KEY_LEFT))
-		image->instances[0].x -= 5;
-	if (mlx_is_key_down(mlx, MLX_KEY_RIGHT))
-		image->instances[0].x += 5;
-	if (mlx_is_key_down(mlx, MLX_KEY_KP_ADD))
+	fdf = (t_fdf *) param;
+	if (mlx_is_key_down(fdf->mlx, MLX_KEY_ESCAPE))
+		mlx_close_window(fdf->mlx);
+	if (mlx_is_key_down(fdf->mlx, MLX_KEY_KP_ADD))
 	{
+		fdf->mov_x *= (fdf->zoom + 1) / (double)(fdf->zoom);
+		fdf->mov_y *= (fdf->zoom + 1) / (double)(fdf->zoom);
 		fdf->zoom += 1;
-		draw_map(fdf);
-		center_img(fdf);
 	}
-	if (mlx_is_key_down(mlx, MLX_KEY_KP_SUBTRACT) && fdf->zoom > 1)
+	if (mlx_is_key_down(fdf->mlx, MLX_KEY_KP_SUBTRACT) && fdf->zoom > 1)
 	{
+		fdf->mov_x *= (fdf->zoom - 1) / (double)(fdf->zoom);
+		fdf->mov_y *= (fdf->zoom - 1) / (double)(fdf->zoom);
 		fdf->zoom -= 1;
-		draw_map(fdf);
-		center_img(fdf);
 	}
-	if (mlx_is_key_down(mlx, MLX_KEY_H))
-	{
+	if (mlx_is_key_down(fdf->mlx, MLX_KEY_H))
 		fdf->h_mod += 0.01;
-		draw_map(fdf);
-	}
-	if (mlx_is_key_down(mlx, MLX_KEY_L))
-	{
+	if (mlx_is_key_down(fdf->mlx, MLX_KEY_L))
 		fdf->h_mod -= 0.01;
-		draw_map(fdf);
-	}
-	if (mlx_is_key_down(mlx, MLX_KEY_B))
-	{
-		fdf->brush += 1;
-		draw_map(fdf);
-	}
-	if (mlx_is_key_down(mlx, MLX_KEY_V) && fdf->brush > 1)
-	{
-		fdf->brush -= 1;
-		draw_map(fdf);
-	}
-	if (mlx_is_key_down(mlx, MLX_KEY_D))
-	{
+	if (mlx_is_key_down(fdf->mlx, MLX_KEY_D))
 		fdf->z_rad += 0.1;
-		draw_map(fdf);
-		center_img(fdf);
-	}
-	if (mlx_is_key_down(mlx, MLX_KEY_A))
-	{
+	if (mlx_is_key_down(fdf->mlx, MLX_KEY_A))
 		fdf->z_rad -= 0.1;
-		draw_map(fdf);
-		center_img(fdf);
-	}
-	if (mlx_is_key_down(mlx, MLX_KEY_Q))
-	{
+	if (mlx_is_key_down(fdf->mlx, MLX_KEY_Q))
 		fdf->y_rad += 0.1;
-		draw_map(fdf);
-		center_img(fdf);
-	}
-	if (mlx_is_key_down(mlx, MLX_KEY_E))
-	{
+	if (mlx_is_key_down(fdf->mlx, MLX_KEY_E))
 		fdf->y_rad -= 0.1;
-		draw_map(fdf);
-		center_img(fdf);
-	}
-	if (mlx_is_key_down(mlx, MLX_KEY_W))
-	{
+	if (mlx_is_key_down(fdf->mlx, MLX_KEY_W))
 		fdf->x_rad += 0.1;
-		draw_map(fdf);
-		center_img(fdf);
-	}
-	if (mlx_is_key_down(mlx, MLX_KEY_S))
-	{
+	if (mlx_is_key_down(fdf->mlx, MLX_KEY_S))
 		fdf->x_rad -= 0.1;
-		draw_map(fdf);
-		center_img(fdf);
+	draw_map(fdf);
+	if (mlx_is_key_down(fdf->mlx, MLX_KEY_UP))
+	{
+		fdf->img->instances[0].y += 5;
+		fdf->mov_y += 5;
+	}
+	if (mlx_is_key_down(fdf->mlx, MLX_KEY_DOWN))
+	{
+		fdf->img->instances[0].y -= 5;
+		fdf->mov_y -= 5;
+	}
+	if (mlx_is_key_down(fdf->mlx, MLX_KEY_LEFT))
+	{
+		fdf->img->instances[0].x += 5;
+		fdf->mov_x += 5;
+	}
+	if (mlx_is_key_down(fdf->mlx, MLX_KEY_RIGHT))
+	{
+		fdf->img->instances[0].x -= 5;
+		fdf->mov_x -= 5;
 	}
 }
 
-void my_keyhook(mlx_key_data_t keydata, void* param)
+void	my_keyhook(mlx_key_data_t keydata, void *param)
 {
-	t_fdf *fdf;
+	t_fdf	*fdf;
 
 	fdf = (t_fdf *) param;
 	if (keydata.key == MLX_KEY_R && keydata.action == MLX_PRESS)
 	{
+		fdf->mov_x = 0;
+		fdf->mov_y = 0;
 		fdf->x_rad = 0;
 		fdf->y_rad = 0;
 		fdf->z_rad = 0;
 		draw_map(fdf);
-		center_img(fdf);
 	}
 	if (keydata.key == MLX_KEY_I && keydata.action == MLX_PRESS)
-	{
 		fdf->persp = 'I';
-		draw_map(fdf);
-		center_img(fdf);
-	}
 	if (keydata.key == MLX_KEY_C && keydata.action == MLX_PRESS)
-	{
 		fdf->persp = 'C';
-		draw_map(fdf);
-		center_img(fdf);
-	}
 	if (keydata.key == MLX_KEY_P && keydata.action == MLX_PRESS)
-	{
 		fdf->persp = 'P';
-		draw_map(fdf);
-		center_img(fdf);
-	}
 	if (48 <= keydata.key && keydata.key <= 57 && keydata.action == MLX_PRESS)
-	{
 		fdf->color = keydata.key - 48;
-		draw_map(fdf);
-		center_img(fdf);
-	}
+	if (keydata.key == MLX_KEY_B && keydata.action == MLX_PRESS)
+		fdf->brush += 1;
+	if (keydata.key == MLX_KEY_V && keydata.action == MLX_PRESS
+		&& fdf->brush > 1)
+		fdf->brush -= 1;
 }
 
 int	main(int argc, char **argv)
@@ -171,9 +117,7 @@ int	main(int argc, char **argv)
 	fdf.img = mlx_new_image(fdf.mlx, fdf.img_w, fdf.img_h);
 	if (!fdf.img)
 		ft_error();
-	clean_img(&fdf);
 	mlx_image_to_window(fdf.mlx, fdf.img, 0, 0);
-	center_img(&fdf);
 	draw_map(&fdf);
 	mlx_key_hook(fdf.mlx, &my_keyhook, &fdf);
 	mlx_loop_hook(fdf.mlx, ft_hook, &fdf);

@@ -6,7 +6,7 @@
 /*   By: fgomez-d <fgomez-d@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/22 17:03:55 by fgomez-d          #+#    #+#             */
-/*   Updated: 2023/04/28 10:17:52 by fgomez-d         ###   ########.fr       */
+/*   Updated: 2023/04/28 12:23:07 by fgomez-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,6 +83,5 @@ void	draw_map(t_fdf *fdf)
 	mlx_resize_image(fdf->img, fdf->img_w, fdf->img_h);
 	clean_img(fdf);
 	fdf_map_iter(fdf, connect_pts);
+	center_img(fdf);
 }
-
-// && fdf->map->pts[row][col]->z <= 

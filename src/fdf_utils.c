@@ -6,7 +6,7 @@
 /*   By: fgomez-d <fgomez-d@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/27 13:20:25 by fgomez-d          #+#    #+#             */
-/*   Updated: 2023/04/28 11:15:23 by fgomez-d         ###   ########.fr       */
+/*   Updated: 2023/04/28 12:51:06 by fgomez-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ void	check_args(int argc, char **argv)
 	if (ft_strnstr(argv[1], ".fdf", ft_strlen(argv[1])) == NULL)
 	{
 		ft_printf_fd(
-				"Introduzca un archivo .fdf como argumento\n", 2);
+			"Introduzca un archivo .fdf como argumento\n", 2);
 		exit(EXIT_FAILURE);
 	}
 	fd = open(argv[1], O_RDONLY);
@@ -44,6 +44,8 @@ void	fdf_init(t_fdf *fdf, char **argv)
 	fdf->brush = 1;
 	fdf->color = 0;
 	fdf->persp = 'I';
+	fdf->mov_x = 0;
+	fdf->mov_y = 0;
 	parse_map(argv[1], fdf);
 	if (!fdf->map)
 	{
@@ -82,6 +84,8 @@ void	clean_img(t_fdf *fdf)
 
 void	center_img(t_fdf *fdf)
 {
-	fdf->img->instances[0].x = (WIDTH - fdf->img_w) / 2;
-	fdf->img->instances[0].y = (HEIGHT - fdf->img_h) / 2;
+	fdf->img->instances[0].x = (WIDTH - fdf->img_w)
+		/ 2 + fdf->mov_x;
+	fdf->img->instances[0].y = (HEIGHT - fdf->img_h)
+		/ 2 + fdf->mov_y;
 }

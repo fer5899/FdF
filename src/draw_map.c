@@ -6,7 +6,7 @@
 /*   By: fgomez-d <fgomez-d@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/22 17:03:55 by fgomez-d          #+#    #+#             */
-/*   Updated: 2023/04/28 12:23:07 by fgomez-d         ###   ########.fr       */
+/*   Updated: 2023/04/28 14:30:57 by fgomez-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,6 @@ void	calc_pts_xy(t_fdf *fdf, t_map_pt *pt)
 	pt->x = pt->col * fdf->zoom;
 	pt->y = pt->row * fdf->zoom;
 	z = (int)(pt->z * fdf->h_mod * fdf->zoom);
-
 	apply_rotations(fdf, pt, &z);
 	apply_perspective(fdf, pt, z);
 }

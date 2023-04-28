@@ -6,7 +6,7 @@
 /*   By: fgomez-d <fgomez-d@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/14 09:27:20 by fgomez-d          #+#    #+#             */
-/*   Updated: 2023/04/28 14:10:05 by fgomez-d         ###   ########.fr       */
+/*   Updated: 2023/04/28 14:28:19 by fgomez-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,8 @@ int	init_map(t_fdf *fdf, t_map_pt **fst_row)
 		return (0);
 	if (fdf->map->cols == 0)
 		return (free(fdf->map), 0);
-	fdf->map->pts = (t_map_pt ***) reg_calloc(fdf->map->rows,
-			sizeof(t_map_pt **), &fdf->alloc);
+	fdf->map->pts = (t_map_pt ***) ft_calloc(fdf->map->rows,
+			sizeof(t_map_pt **));
 	if (fdf->map->pts == NULL)
 		return (free(fdf->map), 0);
 	fdf->map->pts[0] = fst_row;
@@ -28,12 +28,12 @@ int	init_map(t_fdf *fdf, t_map_pt **fst_row)
 	return (1);
 }
 
-t_map_pt	*parse_pt(t_fdf *fdf, char **pt_data, int row, int col)
+t_map_pt	*parse_pt(char **pt_data, int row, int col)
 {
 	t_map_pt	*pt;
 	int			rgb;
 
-	pt = (t_map_pt *) reg_calloc(1, sizeof(t_map_pt), &fdf->alloc);
+	pt = (t_map_pt *) ft_calloc(1, sizeof(t_map_pt));
 	pt->row = row;
 	pt->col = col;
 	if (pt_data == NULL)
@@ -62,7 +62,7 @@ t_map_pt	**parse_row(t_fdf *fdf, int map_fd, int i_row)
 	line = get_next_line(map_fd);
 	if (!line)
 		return (NULL);
-	split = ft_reg_split(line, ' ', fdf->alloc);
+	split = ft_split(line, ' ');
 	if (!split)
 		return (NULL);
 	free(line);
@@ -70,11 +70,11 @@ t_map_pt	**parse_row(t_fdf *fdf, int map_fd, int i_row)
 	if (cols == 0)
 		return (free_split(&split), NULL);
 	fdf->map->cols = cols;
-	row = (t_map_pt **) reg_calloc(cols, sizeof(t_map_pt *), &fdf->alloc);
+	row = (t_map_pt **) ft_calloc(cols, sizeof(t_map_pt *));
 	i_col = -1;
 	while (split[++i_col] != NULL)
 	{
-		row[i_col] = parse_pt(fdf, ft_reg_split(split[i_col], ',', fdf->alloc),
+		row[i_col] = parse_pt(ft_split(split[i_col], ','),
 				i_row, i_col);
 	}
 	return (row);
@@ -97,7 +97,7 @@ void	parse_map(char *map_path, t_fdf *fdf)
 	t_map_pt	**row;
 	int			i_row;
 
-	fdf->map = (t_map *) reg_calloc(1, sizeof(t_map), &fdf->alloc);
+	fdf->map = (t_map *) ft_calloc(1, sizeof(t_map));
 	if (!(fdf->map))
 		return ;
 	fdf->map->rows = count_rows(map_path);
@@ -106,12 +106,12 @@ void	parse_map(char *map_path, t_fdf *fdf)
 		return ;
 	row = parse_row(fdf, map_fd, 0);
 	if (!row || !init_map(fdf, row))
-		return (ft_lstclear(&fdf->alloc, free));
+		return ;
 	i_row = 0;
 	while (++i_row < fdf->map->rows)
 	{
 		if (!add_row(fdf, map_fd, i_row))
-			return (ft_lstclear(&fdf->alloc, free));
+			return ;
 	}
 	close(map_fd);
 	get_img_size(fdf);

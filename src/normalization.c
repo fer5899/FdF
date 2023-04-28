@@ -6,7 +6,7 @@
 /*   By: fgomez-d <fgomez-d@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/27 13:09:48 by fgomez-d          #+#    #+#             */
-/*   Updated: 2023/04/27 17:43:39 by fgomez-d         ###   ########.fr       */
+/*   Updated: 2023/04/28 09:42:19 by fgomez-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,9 +16,9 @@ void	find_minmax(t_fdf *fdf, t_map_pt *pt)
 {
 	if (pt->x > fdf->map->max_x)
 		fdf->map->max_x = pt->x;
-	else if (pt->x < fdf->map->min_x)
+	if (pt->x < fdf->map->min_x)
 		fdf->map->min_x = pt->x;
-	else if (pt->y > fdf->map->max_y)
+	if (pt->y > fdf->map->max_y)
 		fdf->map->max_y = pt->y;
 	if (pt->y < fdf->map->min_y)
 		fdf->map->min_y = pt->y;
@@ -30,16 +30,16 @@ void	find_minmax(t_fdf *fdf, t_map_pt *pt)
 
 void	normalize(t_fdf *fdf, t_map_pt *pt)
 {
-	pt->x += abs(fdf->map->min_x);
-	pt->y += abs(fdf->map->min_y);
+	pt->x += abs(fdf->map->min_x) + fdf->brush;
+	pt->y += abs(fdf->map->min_y) + fdf->brush;
 	if (pt->row == fdf->map->rows - 1 && pt->col == fdf->map->cols - 1)
 	{
 		fdf->map->max_x += abs(fdf->map->min_x);
 		fdf->map->max_y += abs(fdf->map->min_y);
-		fdf->map->min_x = 0;
-		fdf->map->min_y = 0;
-		fdf->img_w = fdf->map->max_x;
-		fdf->img_h = fdf->map->max_y;
+		fdf->map->min_x += abs(fdf->map->min_x);
+		fdf->map->min_y += abs(fdf->map->min_y);
+		fdf->img_w = fdf->map->max_x + fdf->brush * 2;
+		fdf->img_h = fdf->map->max_y + fdf->brush * 2;
 	}
 }
 

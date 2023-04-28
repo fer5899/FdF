@@ -6,7 +6,7 @@
 /*   By: fgomez-d <fgomez-d@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/15 12:07:46 by fgomez-d          #+#    #+#             */
-/*   Updated: 2023/04/27 18:00:58 by fgomez-d         ###   ########.fr       */
+/*   Updated: 2023/04/27 20:50:02 by fgomez-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,9 @@ typedef struct s_fdf
 	int				brush;
 	int				img_h;
 	int				img_w;
+	double			x_rad;
+	double			y_rad;
+	double			z_rad;
 }				t_fdf;
 
 int			get_row_len(t_map_pt **pt);

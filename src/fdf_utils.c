@@ -6,7 +6,7 @@
 /*   By: fgomez-d <fgomez-d@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/27 13:20:25 by fgomez-d          #+#    #+#             */
-/*   Updated: 2023/04/28 12:51:06 by fgomez-d         ###   ########.fr       */
+/*   Updated: 2023/04/28 14:08:39 by fgomez-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,10 +46,12 @@ void	fdf_init(t_fdf *fdf, char **argv)
 	fdf->persp = 'I';
 	fdf->mov_x = 0;
 	fdf->mov_y = 0;
+	fdf->alloc = NULL;
 	parse_map(argv[1], fdf);
 	if (!fdf->map)
 	{
 		ft_printf_fd("Error\n", 2);
+		ft_lstclear(&fdf->alloc, free);
 		exit(EXIT_FAILURE);
 	}
 }

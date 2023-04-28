@@ -6,7 +6,7 @@
 /*   By: fgomez-d <fgomez-d@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/15 12:07:46 by fgomez-d          #+#    #+#             */
-/*   Updated: 2023/04/28 13:01:20 by fgomez-d         ###   ########.fr       */
+/*   Updated: 2023/04/28 14:01:48 by fgomez-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,7 @@ typedef struct s_fdf
 	double			z_rad;
 	int				mov_x;
 	int				mov_y;
+	t_list			*alloc;
 }				t_fdf;
 
 int			get_row_len(t_map_pt **pt);
@@ -80,7 +81,6 @@ int			get_b(int rgba);
 int			get_rgba(int r, int g, int b, int a);
 void		draw_pt(t_fdf *fdf, t_map_pt *pt);
 void		draw_line(t_fdf *fdf, t_map_pt *pt1, t_map_pt *pt2);
-t_map_pt	*init_pt(int x, int y, int z, unsigned int rgba);
 void		set_colors(t_fdf *fdf, t_map_pt *pt, t_map_pt *pt1, t_map_pt *pt2);
 void		draw_map(t_fdf *fdf);
 int			count_rows(char *path);
@@ -94,5 +94,7 @@ void		center_img(t_fdf *fdf);
 void		set_initial_zoom(t_fdf *fdf);
 void		disc_hook(mlx_key_data_t keydata, void *param);
 void		cont_hook(void *param);
+void		*reg_calloc(size_t nmemb, size_t size, t_list **alloc);
+char		**ft_reg_split(char const *s, char c, t_list *alloc);
 
 #endif

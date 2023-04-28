@@ -6,7 +6,7 @@
 /*   By: fgomez-d <fgomez-d@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/14 11:51:39 by fgomez-d          #+#    #+#             */
-/*   Updated: 2023/04/22 19:37:11 by fgomez-d         ###   ########.fr       */
+/*   Updated: 2023/04/28 13:35:49 by fgomez-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,17 +59,17 @@ void	free_split(char	***strtab)
 	free(*strtab);
 }
 
-t_map_pt	*init_pt(int x, int y, int z, unsigned int rgba)
-{
-	t_map_pt	*pt;
+// t_map_pt	*init_pt(int x, int y, int z, unsigned int rgba)
+// {
+// 	t_map_pt	*pt;
 
-	pt = (t_map_pt *) ft_calloc(1, sizeof(t_map_pt));
-	pt->x = x;
-	pt->y = y;
-	pt->z = z;
-	pt->r = get_r(rgba);
-	pt->g = get_g(rgba);
-	pt->b = get_b(rgba);
-	pt->a = 255;
-	return (pt);
-}
+// 	pt = (t_map_pt *) reg_calloc(1, sizeof(t_map_pt), fdf->alloc);
+// 	pt->x = x;
+// 	pt->y = y;
+// 	pt->z = z;
+// 	pt->r = get_r(rgba);
+// 	pt->g = get_g(rgba);
+// 	pt->b = get_b(rgba);
+// 	pt->a = 255;
+// 	return (pt);
+// }

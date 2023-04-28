@@ -6,7 +6,7 @@
 /*   By: fgomez-d <fgomez-d@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/26 15:38:17 by fgomez-d          #+#    #+#             */
-/*   Updated: 2023/04/28 12:13:17 by fgomez-d         ###   ########.fr       */
+/*   Updated: 2023/04/28 14:06:42 by fgomez-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,9 +25,11 @@ int	count_rows(char *path)
 	line = get_next_line(map_fd);
 	while (ft_strlen(line) > 0)
 	{
+		free(line);
 		line = get_next_line(map_fd);
 		n_lines++;
 	}
+	free(line);
 	close(map_fd);
 	return (n_lines);
 }

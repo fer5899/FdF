@@ -6,7 +6,7 @@
 /*   By: fgomez-d <fgomez-d@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/14 09:27:20 by fgomez-d          #+#    #+#             */
-/*   Updated: 2023/04/28 14:28:19 by fgomez-d         ###   ########.fr       */
+/*   Updated: 2023/04/28 14:51:22 by fgomez-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,32 +51,31 @@ t_map_pt	*parse_pt(char **pt_data, int row, int col)
 	return (pt);
 }
 
-t_map_pt	**parse_row(t_fdf *fdf, int map_fd, int i_row)
+t_map_pt	**parse_row(t_fdf *fdf, int map_fd, int i_row, int i_col)
 {
 	t_map_pt	**row;
 	char		*line;
 	char		**split;
-	int			i_col;
-	int			cols;
+	char		**split2;
 
 	line = get_next_line(map_fd);
 	if (!line)
 		return (NULL);
 	split = ft_split(line, ' ');
 	if (!split)
-		return (NULL);
+		return (free(line), NULL);
 	free(line);
-	cols = get_arr_len(split);
-	if (cols == 0)
+	fdf->map->cols = get_arr_len(split);
+	if (fdf->map->cols == 0)
 		return (free_split(&split), NULL);
-	fdf->map->cols = cols;
-	row = (t_map_pt **) ft_calloc(cols, sizeof(t_map_pt *));
-	i_col = -1;
+	row = (t_map_pt **) ft_calloc(fdf->map->cols, sizeof(t_map_pt *));
 	while (split[++i_col] != NULL)
 	{
-		row[i_col] = parse_pt(ft_split(split[i_col], ','),
-				i_row, i_col);
+		split2 = ft_split(split[i_col], ',');
+		row[i_col] = parse_pt(split2, i_row, i_col);
+		free_split(&split2);
 	}
+	free_split(&split);
 	return (row);
 }
 
@@ -84,7 +83,7 @@ int	add_row(t_fdf *fdf, int map_fd, int i_row)
 {
 	t_map_pt	**row;
 
-	row = parse_row(fdf, map_fd, i_row);
+	row = parse_row(fdf, map_fd, i_row, -1);
 	if (!row)
 		return (0);
 	fdf->map->pts[i_row] = row;
@@ -104,7 +103,7 @@ void	parse_map(char *map_path, t_fdf *fdf)
 	map_fd = open(map_path, O_RDONLY);
 	if (map_fd == -1)
 		return ;
-	row = parse_row(fdf, map_fd, 0);
+	row = parse_row(fdf, map_fd, 0, -1);
 	if (!row || !init_map(fdf, row))
 		return ;
 	i_row = 0;

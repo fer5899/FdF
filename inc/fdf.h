@@ -6,7 +6,7 @@
 /*   By: fgomez-d <fgomez-d@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/15 12:07:46 by fgomez-d          #+#    #+#             */
-/*   Updated: 2023/04/28 14:27:05 by fgomez-d         ###   ########.fr       */
+/*   Updated: 2023/04/28 14:53:31 by fgomez-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,5 +93,7 @@ void		center_img(t_fdf *fdf);
 void		set_initial_zoom(t_fdf *fdf);
 void		disc_hook(mlx_key_data_t keydata, void *param);
 void		cont_hook(void *param);
+void		free_map(t_fdf *fdf);
+void		leaks(void);
 
 #endif

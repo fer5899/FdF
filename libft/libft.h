@@ -6,7 +6,7 @@
 /*   By: fgomez-d <fgomez-d@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/30 16:12:48 by fgomez-d          #+#    #+#             */
-/*   Updated: 2023/04/14 11:43:07 by fgomez-d         ###   ########.fr       */
+/*   Updated: 2023/04/28 14:37:31 by fgomez-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -803,5 +803,17 @@ int		ft_minmax(int a, int b, int find_min);
 *				base 10.
 */
 int		ft_atoi_base(char *str, char *base);
+
+/*
+*	@brief		Function like calloc but that registers the pointer created into
+*				the linked list alloc to be able to free it later.
+*
+*	@param		nmemb	Number of members to reserve memory for.
+*	@param		size	Size of each member in bytes.
+*	@param		**alloc	Linked list into which the pointer created will be appended.
+*
+*	@return		The pointer for which the memory was allocated.
+*/
+void	*ft_reg_calloc(size_t nmemb, size_t size, t_list **alloc);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: fgomez-d <fgomez-d@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/13 19:45:25 by fgomez-d          #+#    #+#             */
-/*   Updated: 2023/04/28 10:26:30 by fgomez-d         ###   ########.fr       */
+/*   Updated: 2023/04/28 11:20:50 by fgomez-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -148,6 +148,12 @@ void my_keyhook(mlx_key_data_t keydata, void* param)
 	if (keydata.key == MLX_KEY_P && keydata.action == MLX_PRESS)
 	{
 		fdf->persp = 'P';
+		draw_map(fdf);
+		center_img(fdf);
+	}
+	if (48 <= keydata.key && keydata.key <= 57 && keydata.action == MLX_PRESS)
+	{
+		fdf->color = keydata.key - 48;
 		draw_map(fdf);
 		center_img(fdf);
 	}

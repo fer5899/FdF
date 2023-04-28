@@ -6,7 +6,7 @@
 /*   By: fgomez-d <fgomez-d@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/15 12:07:46 by fgomez-d          #+#    #+#             */
-/*   Updated: 2023/04/28 10:34:49 by fgomez-d         ###   ########.fr       */
+/*   Updated: 2023/04/28 11:13:18 by fgomez-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ typedef struct s_fdf
 	int				fd;
 	int				zoom;
 	double			h_mod;
-	char			style;
+	char			color;
 	char			persp;
 	int				brush;
 	int				img_h;

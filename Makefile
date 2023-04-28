@@ -6,7 +6,7 @@
 #    By: fgomez-d <fgomez-d@student.42malaga.com    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/12/07 17:12:12 by fgomez-d          #+#    #+#              #
-#    Updated: 2023/04/27 13:20:48 by fgomez-d         ###   ########.fr        #
+#    Updated: 2023/04/28 09:44:59 by fgomez-d         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,13 +14,12 @@ CC=gcc
 CPPFLAGS=-Ilibft -Iinc
 NAME=fdf
 
-
-#INC_MLX = -I$(MLX_DIR)/include/MLX42 -Iinclude -lglfw -L"/Users/$(USER)/.brew/opt/glfw/lib/"
+GLFW_PATH="/Users/$(USER)/.brew/opt/glfw/lib/"
 CFLAGS=-Wextra -Wall -Werror -Wunreachable-code -Ofast
 LIBMLX=MLX42
 
 HEADERS=-I$(LIBMLX)/include
-LIBS=-ldl -lglfw -L"/Users/$(USER)/.brew/opt/glfw/lib/" -pthread -lm $(LIBMLX)/libmlx42.a
+LIBS=-ldl -lglfw -L$(GLFW_PATH) -pthread -lm $(LIBMLX)/libmlx42.a
 
 LIB_DIR=libft
 LIB_OBJ=$(LIB_DIR)/*.o

@@ -6,7 +6,7 @@
 /*   By: fgomez-d <fgomez-d@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/27 13:20:25 by fgomez-d          #+#    #+#             */
-/*   Updated: 2023/04/27 18:21:20 by fgomez-d         ###   ########.fr       */
+/*   Updated: 2023/04/28 10:13:14 by fgomez-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,4 +68,19 @@ void	fdf_map_iter(t_fdf *fdf, void (*f)(t_fdf *, t_map_pt *))
 		}
 		col = -1;
 	}
+}
+
+void	clean_img(t_fdf *fdf)
+{
+	int	i;
+
+	i = -1;
+	while (++i < (int)(fdf->img->height * fdf->img->width * 4))
+		fdf->img->pixels[i] = 255;
+}
+
+void	center_img(t_fdf *fdf)
+{
+	fdf->img->instances[0].x = (WIDTH - fdf->img_w) / 2;
+	fdf->img->instances[0].y = (HEIGHT - fdf->img_h) / 2;
 }

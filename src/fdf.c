@@ -6,7 +6,7 @@
 /*   By: fgomez-d <fgomez-d@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/13 19:45:25 by fgomez-d          #+#    #+#             */
-/*   Updated: 2023/04/28 09:40:56 by fgomez-d         ###   ########.fr       */
+/*   Updated: 2023/04/28 10:17:40 by fgomez-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,10 +125,6 @@ void my_keyhook(mlx_key_data_t keydata, void* param)
 	t_fdf *fdf;
 
 	fdf = (t_fdf *) param;
-	// If we PRESS the 'J' key, print "Hello".
-	if (keydata.key == MLX_KEY_P && keydata.action == MLX_PRESS)
-		fdf_map_iter(fdf, print_pt);
-
 	if (keydata.key == MLX_KEY_R && keydata.action == MLX_PRESS)
 	{
 		fdf->x_rad = 0;
@@ -137,6 +133,25 @@ void my_keyhook(mlx_key_data_t keydata, void* param)
 		draw_map(fdf);
 		center_img(fdf);
 	}
+	if (keydata.key == MLX_KEY_I && keydata.action == MLX_PRESS)
+	{
+		fdf->persp = 'I';
+		draw_map(fdf);
+		center_img(fdf);
+	}
+	if (keydata.key == MLX_KEY_C && keydata.action == MLX_PRESS)
+	{
+		fdf->persp = 'C';
+		draw_map(fdf);
+		center_img(fdf);
+	}
+	if (keydata.key == MLX_KEY_P && keydata.action == MLX_PRESS)
+	{
+		fdf->persp = 'P';
+		draw_map(fdf);
+		center_img(fdf);
+	}
+	
 
 	// // If we RELEASE the 'K' key, print "World".
 	// if (keydata.key == MLX_KEY_K && keydata.action == MLX_RELEASE)

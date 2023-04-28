@@ -6,74 +6,62 @@
 /*   By: fgomez-d <fgomez-d@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/22 17:03:55 by fgomez-d          #+#    #+#             */
-/*   Updated: 2023/04/28 09:33:31 by fgomez-d         ###   ########.fr       */
+/*   Updated: 2023/04/28 10:17:52 by fgomez-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/fdf.h"
 
-void	clean_img(t_fdf *fdf)
+void	apply_rotations(t_fdf *fdf, t_map_pt *pt, int *z)
 {
-	int	i;
+	int	x;
+	int	y;
 
-	i = -1;
-	while (++i < (int)(fdf->img->height * fdf->img->width * 4))
-		fdf->img->pixels[i] = 255;
+	x = pt->x;
+	y = pt->y * cos(fdf->x_rad) - *z * sin(fdf->x_rad);
+	*z = pt->y * sin(fdf->x_rad) + *z * cos(fdf->x_rad);
+	pt->x = x;
+	pt->y = y;
+	x = pt->x * cos(fdf->y_rad) + *z * sin(fdf->y_rad);
+	y = pt->y;
+	*z = -pt->x * sin(fdf->y_rad) + *z * cos(fdf->y_rad);
+	pt->x = x;
+	pt->y = y;
+	x = pt->x * cos(fdf->z_rad) - pt->y * sin(fdf->z_rad);
+	y = pt->x * sin(fdf->z_rad) + pt->y * cos(fdf->z_rad);
+	pt->x = x;
+	pt->y = y;
 }
 
-void	center_img(t_fdf *fdf)
+void	apply_perspective(t_fdf *fdf, t_map_pt *pt, int z)
 {
-	fdf->img->instances[0].x = (WIDTH - fdf->img_w) / 2;
-	fdf->img->instances[0].y = (HEIGHT - fdf->img_h) / 2;
+	if (fdf->persp == 'I')
+	{
+		pt->x = 0.866 * pt->x - 0.5 * pt->y;
+		pt->y = 0.866 * pt->y + 0.5 * pt->x - z;
+	}
+	else if (fdf->persp == 'C')
+	{
+		pt->x = (pt->x - 0.71 * z) - 0.71 * (pt->y - 0.71 * z);
+		pt->y = (pt->y - 0.71 * z);
+	}
+	else
+	{
+		pt->x = pt->x;
+		pt->y = pt->y;
+	}
 }
 
 void	calc_pts_xy(t_fdf *fdf, t_map_pt *pt)
 {
-	int	x;
-	int	y;
 	int	z;
 
 	pt->x = pt->col * fdf->zoom;
 	pt->y = pt->row * fdf->zoom;
 	z = (int)(pt->z * fdf->h_mod * fdf->zoom);
 
-	// apply rotation transformation
-	
-	// Rotate around x
-	x = pt->x;
-	y = pt->y * cos(fdf->x_rad) - z * sin(fdf->x_rad);
-	z = pt->y * sin(fdf->x_rad) + z * cos(fdf->x_rad);
-
-	pt->x = x;
-	pt->y = y;
-
-	// // Rotate around y
-	x = pt->x * cos(fdf->y_rad) + z * sin(fdf->y_rad);
-	y = pt->y;
-	z = -pt->x * sin(fdf->y_rad) + z * cos(fdf->y_rad);
-
-	pt->x = x;
-	pt->y = y;
-
-
-	// Rotate around z	
-	x = pt->x * cos(fdf->z_rad) - pt->y * sin(fdf->z_rad);
-	y = pt->x * sin(fdf->z_rad) + pt->y * cos(fdf->z_rad);
-
-	pt->x = x;
-	pt->y = y;
-	// pt->x = pt->x * cos(fdf->angle1) - pt->y * sin(fdf->angle1);
-	// pt->y = pt->x * sin(fdf->angle1) + pt->y * cos(fdf->angle1) * cos(fdf->angle2) - z * sin(fdf->angle2);
-	// z = pt->y * sin(fdf->angle2) - z * cos(fdf->angle2);
-	
-	// apply perspective transformation
-	// Isometric
-	// pt->x = 0.866 * pt->x - 0.5 * pt->y;
-	// pt->y = 0.866 * pt->y + 0.5 * pt->x - z;
-
-	// // Cavalier
-	// pt->x = (pt->x - 0.71 * z) - 0.71 * (pt->y - 0.71 * z);
-	// pt->y = (pt->y - 0.71 * z);
+	apply_rotations(fdf, pt, &z);
+	apply_perspective(fdf, pt, z);
 }
 
 void	connect_pts(t_fdf *fdf, t_map_pt *pt)

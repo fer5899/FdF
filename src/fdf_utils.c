@@ -6,7 +6,7 @@
 /*   By: fgomez-d <fgomez-d@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/27 13:20:25 by fgomez-d          #+#    #+#             */
-/*   Updated: 2023/04/28 10:13:14 by fgomez-d         ###   ########.fr       */
+/*   Updated: 2023/04/28 10:25:06 by fgomez-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,10 +39,11 @@ void	check_args(int argc, char **argv)
 
 void	fdf_init(t_fdf *fdf, char **argv)
 {
-	fdf->zoom = STD_ZOOM;
+	fdf->zoom = 1;
 	fdf->h_mod = STD_HMOD;
 	fdf->brush = 1;
 	fdf->style = 'g';
+	fdf->persp = 'I';
 	parse_map(argv[1], fdf);
 	if (!fdf->map)
 	{

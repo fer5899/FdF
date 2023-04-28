@@ -6,7 +6,7 @@
 /*   By: fgomez-d <fgomez-d@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/13 19:45:25 by fgomez-d          #+#    #+#             */
-/*   Updated: 2023/04/28 10:17:40 by fgomez-d         ###   ########.fr       */
+/*   Updated: 2023/04/28 10:26:30 by fgomez-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -151,17 +151,7 @@ void my_keyhook(mlx_key_data_t keydata, void* param)
 		draw_map(fdf);
 		center_img(fdf);
 	}
-	
-
-	// // If we RELEASE the 'K' key, print "World".
-	// if (keydata.key == MLX_KEY_K && keydata.action == MLX_RELEASE)
-	// 	puts("World");
-
-	// // If we HOLD the 'L' key, print "!".
-	// if (keydata.key == MLX_KEY_L && keydata.action == MLX_REPEAT)
-	// 	puts("!");
 }
-
 
 int	main(int argc, char **argv)
 {

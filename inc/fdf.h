@@ -6,7 +6,7 @@
 /*   By: fgomez-d <fgomez-d@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/15 12:07:46 by fgomez-d          #+#    #+#             */
-/*   Updated: 2023/04/28 10:12:49 by fgomez-d         ###   ########.fr       */
+/*   Updated: 2023/04/28 10:34:49 by fgomez-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,6 @@
 # define WIDTH 1000
 # define HEIGHT 1000
 # define STD_HMOD 0.1
-# define STD_ZOOM 5
 
 typedef struct s_map_pt
 {
@@ -90,5 +89,6 @@ void		check_args(int argc, char **argv);
 void		fdf_init(t_fdf *fdf, char **argv);
 void		clean_img(t_fdf *fdf);
 void		center_img(t_fdf *fdf);
+void		set_initial_zoom(t_fdf *fdf);
 
 #endif
